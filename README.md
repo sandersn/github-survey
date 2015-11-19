@@ -12,4 +12,7 @@ You need node and typescript to use this code.
 3. `mv data*.json repoData/`
 4. `node tsc.js merger.ts; node merger.js`
 5. `node tsc.js fetcher.ts; node fetcher.js`
-6. `node tsc.js degrepper.ts; node degrepper.js`
+6. `cd repos`
+7. `dir -r *ts | sls '<your-regex-here>' > ../results.txt`
+8. `cd ..`
+6. `node tsc.js degrepper.ts; node degrepper.js >final-results.txt`
