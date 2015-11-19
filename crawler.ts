@@ -1,4 +1,3 @@
-
 declare var require: any;
 
 var fs = require('fs');
@@ -22,7 +21,7 @@ function fetchNext() {
 
     var options = {
         host: 'api.github.com',
-        path: '/search/repositories?q=language:typescript&per_page=100&' +activeQuery + '&page=' + pageNumber,
+        path: '/search/repositories?q=language:typescript&per_page=100&' + activeQuery + '&page=' + pageNumber,
         headers: { 'user-agent': 'Mozilla/5.0' }
     };
     https.get(options, (res: any) => {
@@ -35,13 +34,13 @@ function fetchNext() {
             fs.writeFileSync('data_' + queries.length + '_' + pageNumber + '.json', body);
 
             if (pageNumber === 10) {
-                if (activeQuery.length === 0) {
-                    console.log('Done.');
-                } else {
+                if (queries.length) {
                     activeQuery = queries.pop();
                     console.log(`Next query: ${activeQuery} (${queries.length} left)`);
                     pageNumber = 1;
                     setTimeout(fetchNext, 15000);
+                } else {
+                    console.log('Done.');
                 }
             } else {
                 pageNumber++;
