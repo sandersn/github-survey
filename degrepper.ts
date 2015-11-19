@@ -10,14 +10,14 @@ const map: Map<Result> = {}
 const id = x => x
 for (const match of lines.filter(id).map(line => regexp.exec(line)).filter(id)) {
 	// create a map of file:line => code
-	if (match[2] in map && map[match[2]] !== match[3]) {
-		map[match[2] + '-prime'] = {project: match[1], snippet: match[3]}
-	} else {
-		map[match[2]] = { project: match[1], snippet: match[3] }
+	let key = match[2]
+	if (match[2] in map && map[match[2]].snippet !== match[3]) {
+		key += '-prime'
 	}
+	map[key] = { project: match[1], snippet: match[3] }
 }
 let i: number = 0
-for (const address in map) {
+for (const address of Object.keys(map).sort()) {
 	console.log(`${address}\t${map[address].project}`)
 	console.log(`\t${map[address].snippet}`)
 	i += 1
